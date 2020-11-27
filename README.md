@@ -1,5 +1,5 @@
 # pi-fairy-light-control
-Control low power 3.3v fairy lights from a raspberry pi
+Control low power 3.3v fairy lights from a Raspberry Pi
 
 ## About
 ### Features working:
