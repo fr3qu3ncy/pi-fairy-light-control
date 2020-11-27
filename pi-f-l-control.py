@@ -5,10 +5,9 @@ import time
 LedPin_1 = 18   # pin12 --- led fairy lights 1
 LedPin_2 = 19   # pin35 --- led fairy lights 2
 LedPin_3 = 20   # pin38 --- led fairy lights 1
-
 BtnPin = 2     # pin12 --- button
-
 Led_status = 1
+
 
 def setup():
     GPIO.setmode(GPIO.BCM)       # Numbers GPIOs by Broadcom numbering. (GPIO.Board) would nubmer by physical location.
@@ -17,26 +16,7 @@ def setup():
     GPIO.setup(LedPin_3,GPIO.OUT)   # Set LedPin_3's mode is output
     GPIO.setup(BtnPin,GPIO.IN, pull_up_down=GPIO.PUD_UP)    # Set BtnPin's mode is input, and pull up to high level(3.3V)
     
-    while True:
-        GPIO.output(LedPin_1,GPIO.HIGH) # Set LedPin_1 high(+3.3V) to off led
-        time.sleep(1)
-        GPIO.output(LedPin_2,GPIO.HIGH) # Set LedPin_2 high(+3.3V) to off led
-        time.sleep(1)
-        GPIO.output(LedPin_3,GPIO.HIGH) # Set LedPin_3 high(+3.3V) to off led
-        GPIO.output(LedPin_1,GPIO.LOW)
-        time.sleep(1)
-        GPIO.output(LedPin_1,GPIO.HIGH) # Set LedPin_1 high(+3.3V) to off led
-        GPIO.output(LedPin_2,GPIO.LOW)
-        time.sleep(1)
-        GPIO.output(LedPin_2,GPIO.HIGH) # Set LedPin_2 high(+3.3V) to off led
-        GPIO.output(LedPin_3,GPIO.LOW)
-        time.sleep(1)
-        GPIO.output(LedPin_3,GPIO.HIGH) # Set LedPin_2 high(+3.3V) to off led
-        time.sleep(2)
-        GPIO.output(LedPin_1,GPIO.LOW)
-        GPIO.output(LedPin_2,GPIO.LOW)
-        GPIO.output(LedPin_3,GPIO.LOW)
-        time.sleep(1)
+    on_rotate()
 
 def swLed(ev=None):
 	global Led_status
@@ -58,6 +38,32 @@ def destroy():
     GPIO.output(LedPin_3, GPIO.HIGH)     # led_3 off
     GPIO.cleanup()                     # Release resource
 
+def on_all():
+    GPIO.output(LedPin_1,GPIO.HIGH)
+    GPIO.output(LedPin_2,GPIO.HIGH)
+    GPIO.output(LedPin_3,GPIO.HIGH)
+
+def on_rotate():
+    while True:
+        GPIO.output(LedPin_1,GPIO.HIGH) # Set LedPin_1 high(+3.3V) to off led
+        time.sleep(1)
+        GPIO.output(LedPin_2,GPIO.HIGH) # Set LedPin_2 high(+3.3V) to off led
+        time.sleep(1)
+        GPIO.output(LedPin_3,GPIO.HIGH) # Set LedPin_3 high(+3.3V) to off led
+        GPIO.output(LedPin_1,GPIO.LOW)
+        time.sleep(1)
+        GPIO.output(LedPin_1,GPIO.HIGH) # Set LedPin_1 high(+3.3V) to off led
+        GPIO.output(LedPin_2,GPIO.LOW)
+        time.sleep(1)
+        GPIO.output(LedPin_2,GPIO.HIGH) # Set LedPin_2 high(+3.3V) to off led
+        GPIO.output(LedPin_3,GPIO.LOW)
+        time.sleep(1)
+        GPIO.output(LedPin_3,GPIO.HIGH) # Set LedPin_2 high(+3.3V) to off led
+        time.sleep(2)
+        GPIO.output(LedPin_1,GPIO.LOW)
+        GPIO.output(LedPin_2,GPIO.LOW)
+        GPIO.output(LedPin_3,GPIO.LOW)
+        time.sleep(1)
 if __name__ == '__main__':     # Program start from here
 	setup()
 	try:
