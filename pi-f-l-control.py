@@ -53,8 +53,10 @@ def loop():
 		time.sleep(1)   # Don't do anything
 
 def destroy():
-	GPIO.output(LedPin_1, GPIO.HIGH)     # led off
-	GPIO.cleanup()                     # Release resource
+    GPIO.output(LedPin_1, GPIO.HIGH)     # led_1 off
+    GPIO.output(LedPin_2, GPIO.HIGH)     # led_2 off
+    GPIO.output(LedPin_3, GPIO.HIGH)     # led_3 off
+    GPIO.cleanup()                     # Release resource
 
 if __name__ == '__main__':     # Program start from here
 	setup()
