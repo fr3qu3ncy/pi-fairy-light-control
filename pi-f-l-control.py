@@ -17,21 +17,26 @@ def setup():
     GPIO.setup(LedPin_3,GPIO.OUT)   # Set LedPin_3's mode is output
     GPIO.setup(BtnPin,GPIO.IN, pull_up_down=GPIO.PUD_UP)    # Set BtnPin's mode is input, and pull up to high level(3.3V)
     
-    GPIO.output(LedPin_1,GPIO.HIGH) # Set LedPin_1 high(+3.3V) to off led
-    time.sleep(1)
-    GPIO.output(LedPin_2,GPIO.HIGH) # Set LedPin_2 high(+3.3V) to off led
-    time.sleep(1)
-    GPIO.output(LedPin_3,GPIO.HIGH) # Set LedPin_3 high(+3.3V) to off led
-    GPIO.output(LedPin_1,GPIO.LOW)
-    time.sleep(1)
-    GPIO.output(LedPin_1,GPIO.HIGH) # Set LedPin_1 high(+3.3V) to off led
-    GPIO.output(LedPin_2,GPIO.LOW)
-    time.sleep(1)
-    GPIO.output(LedPin_2,GPIO.HIGH) # Set LedPin_2 high(+3.3V) to off led
-    GPIO.output(LedPin_3,GPIO.LOW)
-    time.sleep(2)
-    GPIO.output(LedPin_1,GPIO.LOW)
-    GPIO.output(LedPin_2,GPIO.LOW)
+    while True:
+        GPIO.output(LedPin_1,GPIO.HIGH) # Set LedPin_1 high(+3.3V) to off led
+        time.sleep(1)
+        GPIO.output(LedPin_2,GPIO.HIGH) # Set LedPin_2 high(+3.3V) to off led
+        time.sleep(1)
+        GPIO.output(LedPin_3,GPIO.HIGH) # Set LedPin_3 high(+3.3V) to off led
+        GPIO.output(LedPin_1,GPIO.LOW)
+        time.sleep(1)
+        GPIO.output(LedPin_1,GPIO.HIGH) # Set LedPin_1 high(+3.3V) to off led
+        GPIO.output(LedPin_2,GPIO.LOW)
+        time.sleep(1)
+        GPIO.output(LedPin_2,GPIO.HIGH) # Set LedPin_2 high(+3.3V) to off led
+        GPIO.output(LedPin_3,GPIO.LOW)
+        time.sleep(1)
+        GPIO.output(LedPin_3,GPIO.HIGH) # Set LedPin_2 high(+3.3V) to off led
+        time.sleep(2)
+        GPIO.output(LedPin_1,GPIO.LOW)
+        GPIO.output(LedPin_2,GPIO.LOW)
+        GPIO.output(LedPin_3,GPIO.LOW)
+        time.sleep(1)
 
 def swLed(ev=None):
 	global Led_status
