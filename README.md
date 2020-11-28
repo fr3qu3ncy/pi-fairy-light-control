@@ -19,11 +19,11 @@ Control low power 3v fairy lights / Christmas tree lights from a Raspberry Pi
 
 ## Hardware
 ### Parts List
-* LED - Fairy Lights - Low voltage 3.3v fairly lights.
+* LED - Fairy Lights **x3** - Low voltage 3.3v fairly lights.
     * I used these [battery powered lights from Amazon UK](https://www.amazon.co.uk/gp/product/B08FSQDRJX/ref=ppx_yo_dt_b_asin_image_o04_s00?ie=UTF8&psc=1). I cut of the battery pack, and **crimped on Dupoint conenctors**.
 * S - Push button
     * Any push botton switch
-* R - 330 Ohms resisttors.
+* R - 330 Ohms resisttors **x3**
 * Raspberry Pi
 * Breadboard
 * Dupoint conenction cables (various)
