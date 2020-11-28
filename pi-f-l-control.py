@@ -3,12 +3,13 @@ import RPi.GPIO as GPIO
 import time
 import threading
 
-LedPin_1 = 18   # pin12 --- led fairy lights 1
-LedPin_2 = 19   # pin35 --- led fairy lights 2
-LedPin_3 = 20   # pin38 --- led fairy lights 1
-BtnPin = 2     # pin12 --- button
-Led_status = 1
-led_thread_type = "none"         #Type of lighting thread to run. [none, all, rotate, twinkle] This is to controll stopping thread
+LedPin_1 = 18       # pin12 --- led fairy lights 1
+LedPin_2 = 19       # pin35 --- led fairy lights 2
+LedPin_3 = 20       # pin38 --- led fairy lights 1
+BtnPin_cycle = 23   # pin16 --- button
+
+led_thread_type = "none"    # Type of lighting thread to run. [none, all, rotate, twinkle] This is to controll stopping thread
+led_cycle_type = 0          # Index of the LED patten to be showing. 0=none, 1=all, 2=rotate, 3=twinkle    
 
 def testCode():
     global led_thread_type
@@ -31,19 +32,28 @@ def setup():
     GPIO.setup(LedPin_1,GPIO.OUT)   # Set LedPin_1's mode is output
     GPIO.setup(LedPin_2,GPIO.OUT)   # Set LedPin_2's mode is output
     GPIO.setup(LedPin_3,GPIO.OUT)   # Set LedPin_3's mode is output
-    GPIO.setup(BtnPin,GPIO.IN, pull_up_down=GPIO.PUD_UP)    # Set BtnPin's mode is input, and pull up to high level(3.3V)
+    GPIO.setup(BtnPin_cycle,GPIO.IN, pull_up_down=GPIO.PUD_UP)    # Set BtnPin_cycle's mode is input, and pull up to high level (3.3v)
     
-def swLed(ev=None):
-	global Led_status
-	Led_status = not Led_status
-	GPIO.output(LedPin_1, Led_status)  # switch led status(on-->off; off-->on)
-	if Led_status == 1:
-		print('led off...')
-	else:
-		print('...led on')
+def cycle_btn_pressed(ev=None):
+    global led_cycle_type
+    global led_thread_type
+    if led_cycle_type == 0:
+        led_cycle_type = 1
+        on_all()
+    elif led_cycle_type == 1:
+        led_cycle_type = 2
+        on_rotate()
+    elif led_cycle_type == 2:
+        led_cycle_type = 0
+        off_all()
+    else:
+        print("Ssome issue with led_cycle_type")
+        pass
+    # to-do add led_cycle_type = 3,4,5,6,erc...
+	print("button pressed")
 
 def loop():
-	GPIO.add_event_detect(BtnPin, GPIO.FALLING, callback=swLed, bouncetime=200) # wait for falling and set bouncetime to prevent the callback function from being called multiple times when the button is pressed
+	GPIO.add_event_detect(BtnPin_cycle, GPIO.FALLING, callback=cycle_btn_pressed, bouncetime=200) # wait for falling and set bouncetime to prevent the callback function from being called multiple times when the button is pressed
 	while True:
 		time.sleep(1)   # Don't do anything
 
@@ -68,7 +78,7 @@ def on_all():
         led_thread_type = "all"
         try:                        # If led thread is runing then stop it.
             led_thread.isAlive()
-            time.sleep(1)
+            time.sleep(0.05)
             print("Thread was running.. but should stop???")
             led_thread.join()
         except NameError:
@@ -80,7 +90,6 @@ def on_all():
     else:
         print("Led Thread All alreaday running")
     time.sleep(1)
-    print("Led Thread All (no thread started)")
 
 def on_rotate():
     global led_thread_type
@@ -89,7 +98,7 @@ def on_rotate():
         led_thread_type = "rotate"
         try:                        # If led thread is runing then stop it.
             led_thread.isAlive()
-            time.sleep(1)
+            time.sleep(0.05)
             print("Thread was running.. but should stop???")
             led_thread.join()
         except NameError:
@@ -110,25 +119,30 @@ def start_thread_rotate():
 
     while led_thread_type == "rotate":
         GPIO.output(LedPin_1,GPIO.HIGH) # Set LedPin_1 high(+3.3V) to off led
-        check_thread_type_and_sleep(1)
         GPIO.output(LedPin_2,GPIO.HIGH) # Set LedPin_2 high(+3.3V) to off led
+        GPIO.output(LedPin_3,GPIO.LOW)
         check_thread_type_and_sleep(1)
+        #check_thread_type_and_sleep(1)
         GPIO.output(LedPin_3,GPIO.HIGH) # Set LedPin_3 high(+3.3V) to off led
         GPIO.output(LedPin_1,GPIO.LOW)
         check_thread_type_and_sleep(1)
+        #check_thread_type_and_sleep(1)
         GPIO.output(LedPin_1,GPIO.HIGH) # Set LedPin_1 high(+3.3V) to off led
         GPIO.output(LedPin_2,GPIO.LOW)
         check_thread_type_and_sleep(1)
+        #check_thread_type_and_sleep(1)
         GPIO.output(LedPin_2,GPIO.HIGH) # Set LedPin_2 high(+3.3V) to off led
         GPIO.output(LedPin_3,GPIO.LOW)
         check_thread_type_and_sleep(1)
+        #check_thread_type_and_sleep(1)
         GPIO.output(LedPin_3,GPIO.HIGH) # Set LedPin_2 high(+3.3V) to off led
         check_thread_type_and_sleep(1)
-        check_thread_type_and_sleep(1)
+        #check_thread_type_and_sleep(1)
         GPIO.output(LedPin_1,GPIO.LOW)
         GPIO.output(LedPin_2,GPIO.LOW)
         GPIO.output(LedPin_3,GPIO.LOW)
         check_thread_type_and_sleep(1)
+        #check_thread_type_and_sleep(1)
 
 def start_thread_all():
     def check_thread_type_and_sleep(thread_sleep):
@@ -146,7 +160,7 @@ def start_thread_all():
 if __name__ == '__main__':     # Program start from here
     setup()
     try:
-        testCode()
+        #testCode()
         loop()
     except KeyboardInterrupt:
         destroy()
