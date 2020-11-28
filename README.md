@@ -11,6 +11,7 @@ This is still a work in proress, and in an Alpha state. the features listed as w
 ### Features in progress
 * More differnt patterns and efects
 ### Features in to-do
+* Logging
 * Software PWN to allow fading in and out of light (If the LED light strings suport this!)
 * Apple HomeKit intergration (can be controled on local network, **prefered**)
 * Alexa Skill for ccontrol from Echo devices (needs an **endpoint viable in the internet**, would want to run in IoT LAN or DMZ)
