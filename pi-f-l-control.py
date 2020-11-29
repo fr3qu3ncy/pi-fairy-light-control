@@ -7,7 +7,7 @@ from logging.handlers import TimedRotatingFileHandler
 import os
 import errno
 
-version = "v0.1-dev"
+version = "v0.2"
 
 LedPin_1 = 18       # pin12 --- led fairy lights 1
 LedPin_2 = 19       # pin35 --- led fairy lights 2
@@ -63,7 +63,7 @@ def cycle_btn_pressed(ev=None):
         logging.info("Some issue with led_cycle_type")
         pass
     # to-do add led_cycle_type = 3,4,5,6,erc...
-	logging.info("button pressed")
+    logging.info("button pressed")
 
 ## Main loop, adds event handler for button press.
 def loop():

@@ -4,7 +4,7 @@ Control low power 3v fairy lights / Christmas tree lights from a Raspberry Pi
 ## About
 This is still a work in proress, and in an Alpha state. the features listed as working below do work.
 ### Version
-0.1-dev
+v0.2
 ### Features working:
 * Control multiple light strings of fairy light connected to the GPIO pins
 * Threading of LED control
@@ -21,6 +21,27 @@ This is still a work in proress, and in an Alpha state. the features listed as w
 * Run as Daemon
 * Install scripts
 * Photorisistor to control light strings at differnt light levels.
+
+## Install Instructions
+### Download and unzip latest release code
+```
+wget https://github.com/fr3qu3ncy/pi-fairy-light-control/archive/v0.2.tar.gz
+tar -zxvf v0.2.tar.gz
+rm v0.2.tar.gz
+```
+
+### Install Prerequisites (for python3)
+```
+sudo apt-get update
+sudo apt-get -y install python3-rpi.gpio
+```
+
+### Run Code
+```
+cd pi-fairy-light-control-v0.2/
+python3 pi-f-l-control.py
+```
+You can run under python2.7 if you wish.
 
 ## Hardware
 ### Parts List
