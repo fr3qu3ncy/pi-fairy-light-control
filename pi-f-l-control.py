@@ -7,7 +7,7 @@ from logging.handlers import TimedRotatingFileHandler
 import os
 import errno
 
-version = "0.1"
+version = "v0.1-dev"
 
 LedPin_1 = 18       # pin12 --- led fairy lights 1
 LedPin_2 = 19       # pin35 --- led fairy lights 2
@@ -72,7 +72,7 @@ def loop():
 		time.sleep(1)   # Don't do anything
 
 ## clean up GPIO pins
-def destroy():
+def destroy(): # Not woking! 
     GPIO.output(LedPin_1, GPIO.LOW)     # led_1 off
     GPIO.output(LedPin_2, GPIO.LOW)     # led_2 off
     GPIO.output(LedPin_3, GPIO.LOW)     # led_3 off
@@ -203,8 +203,8 @@ def mkdir_p(path):
 if __name__ == '__main__':     # Program start from here
     log_create()
     #log_create_stdout()
-    logger.info("Start up...")
-    logger.info("pi-fairy-lights : version v%s : STARTED", version)
+    logger.info("Starting up...")
+    logger.info("pi-fairy-lights : version %s : STARTED", version)
     setup()
     try:
         #testCode()
@@ -212,5 +212,5 @@ if __name__ == '__main__':     # Program start from here
     except KeyboardInterrupt:
         destroy()
     finally:
-        logger.info("pi-fairy-lights : version v%s : EXIT", version)
+        logger.info("pi-fairy-lights : version %s : EXIT", version)
         destroy()
