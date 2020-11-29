@@ -10,8 +10,9 @@ This is still a work in proress, and in an Alpha state. the features listed as w
 * Threading of LED control
 * Some patterns/effect
 * Hardware button for on off / cycle through patterns
-### Features in progress
 * Logging
+### Features in progress
+* none
 ### Features in to-do
 * More differnt patterns and efects
 * Software PWN to allow fading in and out of light (If the LED light strings suport this!)

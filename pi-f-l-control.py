@@ -88,7 +88,7 @@ def off_all():
     GPIO.output(LedPin_1,GPIO.LOW)
     GPIO.output(LedPin_2,GPIO.LOW)
     GPIO.output(LedPin_3,GPIO.LOW)
-    logging.info("Led Thread: none - (no thread started)")
+    logger.info("Led Thread: none - (no thread started)")
 
 def on_all():
     global led_thread_type
@@ -98,16 +98,15 @@ def on_all():
         try:                        # If led thread is runing then stop it.
             led_thread.isAlive()
             time.sleep(0.05)
-            logging.info("Thread was running.. but should stop???")
+            logger.info("Thread was running.. but should stop???")
             led_thread.join()
         except NameError:
-            logging.info("Thread not running")
+            logger.info("Thread not running")
         
         led_thread = threading.Thread(target=start_thread_all) # Start new led thread
         led_thread.start()
-        logging.info("Led Thread: All - STARTED")
     else:
-        logging.info("Led Thread: All - alreaday running")
+        logger.info("Led Thread: All - alreaday running")
     time.sleep(1)
 
 def on_rotate():
@@ -118,25 +117,24 @@ def on_rotate():
         try:                        # If led thread is runing then stop it.
             led_thread.isAlive()
             time.sleep(0.05)
-            logging.info("Thread was running.. but should stop???")
+            logger.debug("Thread was running.. but should stop???")
             led_thread.join()
         except NameError:
-            logging.info("Thread not running")
+            logger.info("Thread not running")
         
         led_thread = threading.Thread(target=start_thread_rotate) # Start new led thread
         led_thread.start()
-        logging.info("Led Thread: Rotate - STARTED")
     else:
-        logging.info("Led Thread: Rotate - alreaday running")
+        logger.info("Led Thread: Rotate - alreaday running")
 
 ## Functions for light pattern threads
 def start_thread_rotate():
     def check_thread_type_and_sleep(thread_sleep):
         if led_thread_type == "rotate":
             time.sleep(thread_sleep)
-            logging.debug(led_thread_type)
+            logger.debug(led_thread_type)
             # break
-
+    logger.info("Led Thread: Rotate - STARTED")
     while led_thread_type == "rotate":
         GPIO.output(LedPin_1,GPIO.HIGH) # Set LedPin_1 high(+3.3V) to off led
         GPIO.output(LedPin_2,GPIO.HIGH) # Set LedPin_2 high(+3.3V) to off led
@@ -157,32 +155,35 @@ def start_thread_rotate():
         GPIO.output(LedPin_2,GPIO.LOW)
         GPIO.output(LedPin_3,GPIO.LOW)
         check_thread_type_and_sleep(1)
+    logger.info("Led Thread: Rotate - STOP")
 
 def start_thread_all():
     def check_thread_type_and_sleep(thread_sleep):
         if led_thread_type == "all":
             time.sleep(thread_sleep)
-            logging.debug(led_thread_type)
+            logger.debug(led_thread_type)
             # break
-
+    logger.info("Led Thread: All - STARTED")
     while led_thread_type == "all":
         GPIO.output(LedPin_1,GPIO.HIGH)
         GPIO.output(LedPin_2,GPIO.HIGH)
         GPIO.output(LedPin_3,GPIO.HIGH)
         check_thread_type_and_sleep(1)
-
+    logger.info("Led Thread: All - STOP")
 ##
 ## Logging
 ##
 def log_create():
+    global logger
     mkdir_p(log_path)
     format = "%(asctime)s.%(msecs)03d %(levelname)s %(process)d (%(name)s-%(threadName)s) %(message)s (linuxThread-%(thread)d)"
     logger = logging.getLogger("Rotating Log")
     logger.setLevel(logging.INFO)
     log_handler = TimedRotatingFileHandler(log_path + log_file, when="midnight", interval=1, backupCount=30)
-    log_handler.setFormatter(format)
+    log_handler.setFormatter(logging.Formatter(format))
+    #logger.setFormatter(format)
     logger.addHandler(log_handler)
-    #logging.basicConfig(format=format, level=logging.INFO, datefmt="%m/%d/%Y %H:%M:%S")
+    logging.basicConfig(format=format, level=logging.INFO, datefmt="%m/%d/%Y %H:%M:%S")
 
 def log_create_stdout():
     format = "%(asctime)s.%(msecs)03d %(levelname)s %(process)d (%(name)s-%(threadName)s) %(message)s (linuxThread-%(thread)d)"
@@ -200,9 +201,10 @@ def mkdir_p(path):
             else: raise
 
 if __name__ == '__main__':     # Program start from here
-    #log_create()
-    log_create_stdout()
-    logging.info("pi-fairy-lights : version v%s : STARTED", version)
+    log_create()
+    #log_create_stdout()
+    logger.info("Start up...")
+    logger.info("pi-fairy-lights : version v%s : STARTED", version)
     setup()
     try:
         #testCode()
@@ -210,5 +212,5 @@ if __name__ == '__main__':     # Program start from here
     except KeyboardInterrupt:
         destroy()
     finally:
-        logging.info("pi-fairy-lights : version v%s : EXIT", version)
+        logger.info("pi-fairy-lights : version v%s : EXIT", version)
         destroy()
