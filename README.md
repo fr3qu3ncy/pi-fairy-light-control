@@ -11,9 +11,8 @@ This is still a work in proress, and in an Alpha state. the features listed as w
 * Some patterns/effect
 * Hardware button for on off / cycle through patterns
 ### Features in progress
-* none
-### Features in to-do
 * Logging
+### Features in to-do
 * More differnt patterns and efects
 * Software PWN to allow fading in and out of light (If the LED light strings suport this!)
 * Apple HomeKit intergration (can be controled on local network, **prefered**)
