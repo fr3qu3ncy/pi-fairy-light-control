@@ -38,7 +38,7 @@ sudo apt-get -y install python3-rpi.gpio
 
 ### Run Code
 ```
-cd pi-fairy-light-control-v0.2/
+cd pi-fairy-light-control-0.2/
 python3 pi-f-l-control.py
 ```
 You can run under python2.7 if you wish.
