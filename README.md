@@ -3,15 +3,18 @@ Control low power 3v fairy lights / Christmas tree lights from a Raspberry Pi
 
 ## About
 This is still a work in proress, and in an Alpha state. the features listed as working below do work.
+### Version
+0.1
 ### Features working:
 * Control multiple light strings of fairy light connected to the GPIO pins
 * Threading of LED control
 * Some patterns/effect
 * Hardware button for on off / cycle through patterns
 ### Features in progress
-* More differnt patterns and efects
+* none
 ### Features in to-do
 * Logging
+* More differnt patterns and efects
 * Software PWN to allow fading in and out of light (If the LED light strings suport this!)
 * Apple HomeKit intergration (can be controled on local network, **prefered**)
 * Alexa Skill for ccontrol from Echo devices (needs an **endpoint viable in the internet**, would want to run in IoT LAN or DMZ)
