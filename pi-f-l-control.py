@@ -7,7 +7,7 @@ from logging.handlers import TimedRotatingFileHandler
 import os
 import errno
 
-version = "v0.2"
+version = "v0.2.1"
 
 LedPin_1 = 18       # pin12 --- led fairy lights 1
 LedPin_2 = 19       # pin35 --- led fairy lights 2
