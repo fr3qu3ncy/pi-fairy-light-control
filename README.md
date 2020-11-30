@@ -12,7 +12,7 @@ v0.2.1
 * Hardware button for on off / cycle through patterns
 * Logging
 ### Features in progress
-* none
+* Software/hardware PWM to allow fading in and out of light (If the LED light strings suport this!)
 ### Features in to-do
 * More differnt patterns and effects
 * Software PWM to allow fading in and out of light (If the LED light strings suport this!)
