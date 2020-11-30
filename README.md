@@ -16,8 +16,10 @@ v0.2.1
 ### Features in to-do
 * More differnt patterns and effects
 * Software PWM to allow fading in and out of light (If the LED light strings suport this!)
-* Apple HomeKit intergration (can be controled on local network, **prefered**)
-* Alexa Skill for ccontrol from Echo devices (needs an **endpoint viable in the internet**, would want to run in IoT LAN or DMZ)
+* Smart Home Integration
+    * Apple HomeKit intergration (can be controled on local network, **prefered**)
+    * Alexa Skill for ccontrol from Echo devices (needs an **endpoint viable in the internet**, would want to run in IoT LAN or DMZ)
+    * Philips hue with a Zigby Hat/dongle.
 * Run as Daemon
 * Install scripts
 * Photorisistor to control light strings at differnt light levels.

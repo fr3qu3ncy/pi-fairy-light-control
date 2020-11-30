@@ -178,6 +178,7 @@ def log_create():
     mkdir_p(log_path)
     format = "%(asctime)s.%(msecs)03d %(levelname)s %(process)d (%(name)s-%(threadName)s) %(message)s (linuxThread-%(thread)d)"
     logger = logging.getLogger("Rotating Log")
+    #logger.setLevel(logging.INFO)
     logger.setLevel(logging.INFO)
     log_handler = TimedRotatingFileHandler(log_path + log_file, when="midnight", interval=1, backupCount=30)
     log_handler.setFormatter(logging.Formatter(format))
@@ -210,6 +211,7 @@ if __name__ == '__main__':     # Program start from here
         #testCode()
         loop()
     except KeyboardInterrupt:
+        logger.info("pi-fairy-lights : version %s : EXIT", version)
         destroy()
     finally:
         logger.info("pi-fairy-lights : version %s : EXIT", version)
