@@ -6,22 +6,23 @@ This is still a work in proress, and in an Alpha state. the features listed as w
 ### Version
 v0.2.1
 ### Features working:
-* Control multiple light strings of fairy light connected to the GPIO pins
-* Threading of LED control
-* Some patterns/effect
+* Control multiple light strings of fairy light connected to the GPIO pins.
+* Threading of LED control.
+* Some patterns/effect - All on, Rotate, Twinkle slow, Twinkle fast, All off.
+* Software PWM to allow fading in and out of light.
 * Hardware button for on off / cycle through patterns
-* Logging
+* Logging - rotating log to /var/logs/pi-fairy-light-control/pi-f-l-control.log
 ### Features in progress
 * none
 ### Features in to-do
 * More differnt patterns and effects
-* Software PWM to allow fading in and out of light (If the LED light strings suport this!)
 * Smart Home Integration
     * Apple HomeKit intergration (can be controled on local network, **prefered**)
     * Alexa Skill for ccontrol from Echo devices (needs an **endpoint viable in the internet**, would want to run in IoT LAN or DMZ)
-    * Philips hue with a Zigby Hat/dongle.
+    * Philips Hue with a Zigby Hat/dongle. (Should then intergrate to Alexa/Apple/Google etc)
 * Run as Daemon
 * Install scripts
+* BPM detaction options
 * Photorisistor to control light strings at differnt light levels.
 
 ## Install Instructions
