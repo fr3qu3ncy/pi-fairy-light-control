@@ -13,7 +13,6 @@ LedPin_1 = 18       # pin12 --- led fairy lights 1
 LedPin_2 = 19       # pin35 --- led fairy lights 2
 LedPin_3 = 20       # pin38 --- led fairy lights 1
 BtnPin_cycle = 23   # pin16 --- button
-BtnPin_test = 24  #TEST Code 
 
 led_thread_type = "none"    # Type of lighting thread to run. [none, all, rotate, twinkle fast, twinkle medium, twinkle slow] This is to controll stopping thread
 led_cycle_type = 0          # Index of the LED patten to be showing. 0=none, 1=all, 2=rotate, 3=twinkle fast, 4=twinkle medium, 5=twinkle fast.    
@@ -22,11 +21,6 @@ logging
 log_path = "/var/log/pi-fairy-light-control/"
 log_file = "pi-f-l-control.log"
 
-## Test code, not to be using in a release.
-def testCode():
-    global led_thread_type
-    #destroy()
-
 ## Set up the GPIO Pins
 def setup():
     GPIO.setmode(GPIO.BCM)       # Numbers GPIOs by Broadcom numbering. (GPIO.Board) would nubmer by physical location.
@@ -34,7 +28,7 @@ def setup():
     GPIO.setup(LedPin_2,GPIO.OUT)   # Set LedPin_2's mode is output
     GPIO.setup(LedPin_3,GPIO.OUT)   # Set LedPin_3's mode is output
     GPIO.setup(BtnPin_cycle,GPIO.IN, pull_up_down=GPIO.PUD_UP)    # Set BtnPin_cycle's mode is input, and pull up to high level (3.3v)
-    GPIO.setup(BtnPin_test,GPIO.IN, pull_up_down=GPIO.PUD_UP)  # TEST code
+
 ## Handler for button presssed.
 def btn_pressed_cycle(ev=None):
     global led_cycle_type
@@ -61,16 +55,11 @@ def btn_pressed_cycle(ev=None):
     else:
         logger.info("Some issue with led_cycle_type")
         pass
-    # to-do add led_cycle_type = 3,4,5,6,erc...
-
-## TEST code to ber removed.
-def btn_pressed_test(ev=None):
-    logger.info("Button pressed - TEST")
+    # to-do add led_cycle_type = 3,4,5,6,etc... as new patterns are added
 
 ## Main loop, adds event handler for button press.
 def loop():
     GPIO.add_event_detect(BtnPin_cycle, GPIO.FALLING, callback=btn_pressed_cycle, bouncetime=200) # wait for falling and set bouncetime to prevent the callback function from being called multiple times when the button is pressed
-    GPIO.add_event_detect(BtnPin_test, GPIO.FALLING, callback=btn_pressed_test, bouncetime=200) # TEST code
     while True:
         time.sleep(1) # Don't do anything
 
