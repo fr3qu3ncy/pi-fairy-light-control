@@ -7,7 +7,7 @@ from logging.handlers import TimedRotatingFileHandler
 import os
 import errno
 
-version = "v0.3"
+version = "v0.3.1"
 
 LedPin_1 = 18       # pin12 --- led fairy lights 1
 LedPin_2 = 19       # pin35 --- led fairy lights 2
@@ -15,8 +15,8 @@ LedPin_3 = 20       # pin38 --- led fairy lights 1
 BtnPin_cycle = 23   # pin16 --- button
 BtnPin_test = 24  #TEST Code 
 
-led_thread_type = "none"    # Type of lighting thread to run. [none, all, rotate, twinkle fast, twinkle slow] This is to controll stopping thread
-led_cycle_type = 0          # Index of the LED patten to be showing. 0=none, 1=all, 2=rotate, 3=twinkle slow, 4=twinkle fast.    
+led_thread_type = "none"    # Type of lighting thread to run. [none, all, rotate, twinkle fast, twinkle medium, twinkle slow] This is to controll stopping thread
+led_cycle_type = 0          # Index of the LED patten to be showing. 0=none, 1=all, 2=rotate, 3=twinkle fast, 4=twinkle medium, 5=twinkle fast.    
 
 logging
 log_path = "/var/log/pi-fairy-light-control/"
@@ -48,11 +48,14 @@ def btn_pressed_cycle(ev=None):
         on_rotate()
     elif led_cycle_type == 2:
         led_cycle_type = 3
-        on_twinkle(1) # twinkle 1 second
+        on_twinkle(0.5) # twinkle fast 0.5 second
     elif led_cycle_type == 3:
         led_cycle_type = 4
-        on_twinkle(0.5) # twinkle 0.5 seconds
+        on_twinkle(1) # twinkle medium 1 seconds
     elif led_cycle_type == 4:
+        led_cycle_type = 5
+        on_twinkle(2) # twinkle slow 2 seconds
+    elif led_cycle_type == 5:
         led_cycle_type = 0
         off_all()
     else:
@@ -195,8 +198,8 @@ def start_thread_twinkle():
     while led_thread_type == "twinkle":
         # led_value 0 to 100 (brighten)
         for pwm_value in range(0,101,1):
-            pwm_value_2 = pwm_value + 33
-            pwm_value_3 = pwm_value + 66
+            pwm_value_2 = pwm_value + 49
+            pwm_value_3 = pwm_value + 99
             if pwm_value_2 > 100: # vlaues over 100 decrease value
                 pwm_value_2 = pwm_value_2 - ((pwm_value_2 - 100) * 2)
             if pwm_value_3 > 100: # values over 100 decrease value
@@ -207,8 +210,8 @@ def start_thread_twinkle():
             check_thread_type_and_sleep(twinkle_speed / 100)
         # led_value 100 to 0 (dimm)
         for pwm_value in range(100,0,-1):
-            pwm_value_2 = pwm_value - 33
-            pwm_value_3 = pwm_value - 66
+            pwm_value_2 = pwm_value - 49
+            pwm_value_3 = pwm_value - 99
             if pwm_value_2 < 0: # values under 0, increase vlaue
                 pwm_value_2 = abs(pwm_value_2)
             if pwm_value_3 < 0: # values under 0, increase vlaue
