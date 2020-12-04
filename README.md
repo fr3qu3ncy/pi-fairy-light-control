@@ -4,30 +4,33 @@ Control low power 3v fairy lights / Christmas tree lights from a Raspberry Pi
 ## About
 This is still a work in proress, and in an Alpha state. the features listed as working below do work.
 ### Version
-v0.2.1
+v0.3
 ### Features working:
-* Control multiple light strings of fairy light connected to the GPIO pins
-* Threading of LED control
-* Some patterns/effect
+* Control multiple light strings of fairy light connected to the GPIO pins.
+* Threading of LED control.
+* Some patterns/effect - All on, Rotate, Twinkle slow, Twinkle fast, All off.
+* Software PWM to allow fading in and out of light.
 * Hardware button for on off / cycle through patterns
-* Logging
+* Logging - rotating log to /var/logs/pi-fairy-light-control/pi-f-l-control.log
 ### Features in progress
 * none
 ### Features in to-do
 * More differnt patterns and effects
-* Software PWM to allow fading in and out of light (If the LED light strings suport this!)
-* Apple HomeKit intergration (can be controled on local network, **prefered**)
-* Alexa Skill for ccontrol from Echo devices (needs an **endpoint viable in the internet**, would want to run in IoT LAN or DMZ)
+* Smart Home Integration
+    * Apple HomeKit intergration (can be controled on local network, **prefered**)
+    * Alexa Skill for ccontrol from Echo devices (needs an **endpoint viable in the internet**, would want to run in IoT LAN or DMZ)
+    * Philips Hue with a Zigby Hat/dongle. (Should then intergrate to Alexa/Apple/Google etc)
 * Run as Daemon
 * Install scripts
+* BPM detaction options
 * Photorisistor to control light strings at differnt light levels.
 
 ## Install Instructions
 ### Download and unzip latest release code
 ```
-wget https://github.com/fr3qu3ncy/pi-fairy-light-control/archive/v0.2.1.tar.gz
-tar -zxvf v0.2.1.tar.gz
-rm v0.2.1.tar.gz
+wget https://github.com/fr3qu3ncy/pi-fairy-light-control/archive/v0.3.tar.gz
+tar -zxvf v0.3.tar.gz
+rm v0.3.tar.gz
 ```
 
 ### Install Prerequisites (for python3)
@@ -38,7 +41,7 @@ sudo apt-get -y install python3-rpi.gpio
 
 ### Run Code
 ```
-cd pi-fairy-light-control-0.2.1/
+cd pi-fairy-light-control-0.3/
 python3 pi-f-l-control.py
 ```
 You can run under python2.7 if you wish.
