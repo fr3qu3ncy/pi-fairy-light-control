@@ -8,7 +8,7 @@ v0.3
 ### Features working:
 * Control multiple light strings of fairy light connected to the GPIO pins.
 * Threading of LED control.
-* Some patterns/effect - All on, Rotate, Twinkle slow, Twinkle fast, All off.
+* Patterns/effect - All on, Rotate, Twinkle slow, Twinkle medium, Twinkle fast, All off.
 * Software PWM to allow fading in and out of light.
 * Hardware button for on off / cycle through patterns
 * Logging - rotating log to /var/logs/pi-fairy-light-control/pi-f-l-control.log
