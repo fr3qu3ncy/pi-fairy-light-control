@@ -8,11 +8,12 @@ v0.2.1
 ### Features working:
 * Control multiple light strings of fairy light connected to the GPIO pins
 * Threading of LED control
-* Some patterns/effect
+* Some patterns/effect - All, Rotate
 * Hardware button for on off / cycle through patterns
 * Logging
 ### Features in progress
 * Software/hardware PWM to allow fading in and out of light (If the LED light strings suport this!)
+* More differnt patterns and effects - Twinkle
 ### Features in to-do
 * More differnt patterns and effects
 * Software PWM to allow fading in and out of light (If the LED light strings suport this!)
