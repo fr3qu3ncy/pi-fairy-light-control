@@ -1,8 +1,11 @@
 # pi-fairy-light-control
-Control low power 3v fairy lights / Christmas tree lights from a Raspberry Pi
+Control low power 3v LED fairy lights / Christmas tree lights from a Raspberry Pi
 
 ## About
-This is still a work in proress, and in an Alpha state. the features listed as working below do work.
+This code requires 3 low power LED fairly light strings/strips that run at around 3v. Or to simply test or develop with this code 3 LEDs would work.
+
+The [hardware list and circuit diagrams](https://github.com/fr3qu3ncy/pi-fairy-light-control#hardware) are both below
+
 ### Version
 v0.3.1
 ### Features working:
