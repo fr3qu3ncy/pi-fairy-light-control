@@ -16,7 +16,7 @@ v0.3.1
 * Hardware button for on off / cycle through patterns
 * Logging - rotating log to /var/logs/pi-fairy-light-control/pi-f-l-control.log
 ### Features in progress
-* none
+* Sparkle pattern
 ### Features in to-do
 * More differnt patterns and effects
 * Smart Home Integration
