@@ -50,7 +50,7 @@ python3 pi-f-l-control.py
 You can run under python2.7 if you wish.
 
 ## Instructions
-When you start the code `python3 pi-f-l-control.py` the LED lights will all be off.
+When you start the code `python3 pi-f-l-control.py` the LED lights will all be off, or lit in their last static state.
 Pressing the button will cycle through the available patterns in the following order:
 1. All On
 1. Rotate
