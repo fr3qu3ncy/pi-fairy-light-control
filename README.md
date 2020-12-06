@@ -11,7 +11,7 @@ v0.3.1
 ### Features working:
 * Control multiple light strings of fairy light connected to the GPIO pins.
 * Threading of LED control.
-* Patterns/effect - All on, Rotate, Twinkle slow, Twinkle medium, Twinkle fast, All off.
+* Patterns/effect - All on, Rotate, Twinkle (slow/medium/fast), Sparkle (slow/mediuam/fast) All off.
 * Software PWM to allow fading in and out of light.
 * Hardware button for on off / cycle through patterns
 * Logging - rotating log to /var/logs/pi-fairy-light-control/pi-f-l-control.log
@@ -48,6 +48,19 @@ cd pi-fairy-light-control-0.3.1/
 python3 pi-f-l-control.py
 ```
 You can run under python2.7 if you wish.
+
+## Instructions
+When you start the code `python3 pi-f-l-control.py` the LED lights will all be off.
+Pressing the button will cycle through the available patterns in the following order:
+1. All On
+1. Rotate
+1. Twinkle Fast
+1. Twinkle Medium
+1. Twinkle Slow
+1. Sparkle Fast
+1. Sparkle Medium
+1. Sparkle Slow
+1. All Off
 
 ## Hardware
 ### Parts List

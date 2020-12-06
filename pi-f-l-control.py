@@ -14,8 +14,8 @@ LedPin_2 = 19       # pin35 --- led fairy lights 2
 LedPin_3 = 20       # pin38 --- led fairy lights 1
 BtnPin_cycle = 23   # pin16 --- button
 
-led_thread_type = "none"    # Type of lighting thread to run. [none, all, rotate, twinkle fast, twinkle medium, twinkle slow, sparkle fast, sparkle medium] This is to controll stopping thread
-led_cycle_type = 0          # Index of the LED patten to be showing. 0=none, 1=all, 2=rotate, 3=twinkle fast, 4=twinkle medium, 5=twinkle slow, 6=sparkle fast, 7=sparkle medium.
+led_thread_type = "none"    # Type of lighting thread to run. [none, all, rotate, twinkle fast, twinkle medium, twinkle slow, sparkle fast, sparkle medium, sparkle slow] This is to controll stopping thread
+led_cycle_type = 0          # Index of the LED patten to be showing. 0=none, 1=all, 2=rotate, 3=twinkle fast, 4=twinkle medium, 5=twinkle slow, 6=sparkle fast, 7=sparkle medium, 8=sparkle slow.
 
 logging
 log_path = "/var/log/pi-fairy-light-control/"
@@ -33,7 +33,7 @@ def setup():
 def btn_pressed_cycle(ev=None):
     global led_cycle_type
     global led_thread_type
-    logger.info("Button pressed - cycle")
+    logger.info("Button pressed - cycle pattern")
     if led_cycle_type == 0:
         led_cycle_type = 1
         on_all()
@@ -54,8 +54,11 @@ def btn_pressed_cycle(ev=None):
         on_sparkle(1) # sparkle 1 seconds
     elif led_cycle_type == 6:
         led_cycle_type = 7
-        on_sparkle(2) # sparkle 2 seconds
+        on_sparkle(2.5) # sparkle 2.5 seconds
     elif led_cycle_type == 7:
+        led_cycle_type = 8
+        on_sparkle(4) # sparkle 4 seconds
+    elif led_cycle_type == 8:
         led_cycle_type = 0
         off_all()
     else:
@@ -262,8 +265,8 @@ def start_thread_sparkle():
     led_pwm_3.ChangeDutyCycle(50)
     # MAke the LED strings 'sparkle'
     while led_thread_type == "sparkle":
-        for pwm_value in range(50,30,-1):               # LED string 1 dimmer
-            led_pwm_1.ChangeDutyCycle(pwm_value)
+        for pwm_value in range(50,30,-1):               # LED string 2 dimmer
+            led_pwm_2.ChangeDutyCycle(pwm_value)
             check_thread_type_and_sleep(0.0003)
         for pwm_value in range(31,101,1):               # LED string 1 brighter
             led_pwm_1.ChangeDutyCycle(pwm_value)
@@ -272,8 +275,9 @@ def start_thread_sparkle():
             led_pwm_1.ChangeDutyCycle(pwm_value)
             check_thread_type_and_sleep(0.0033)
         check_thread_type_and_sleep(sparkle_speed / 6)  # Wait
-        for pwm_value in range(50,30,-1):               # LED string 2 dimmer
-            led_pwm_2.ChangeDutyCycle(pwm_value)
+        
+        for pwm_value in range(50,30,-1):               # LED string 3 dimmer
+            led_pwm_3.ChangeDutyCycle(pwm_value)
             check_thread_type_and_sleep(0.0003)
         for pwm_value in range(31,101,1):               # LED string 2 brighter
             led_pwm_2.ChangeDutyCycle(pwm_value)
@@ -282,8 +286,9 @@ def start_thread_sparkle():
             led_pwm_2.ChangeDutyCycle(pwm_value)
             check_thread_type_and_sleep(0.0033)
         check_thread_type_and_sleep(sparkle_speed / 6)  # Wait
-        for pwm_value in range(50,30,-1):               # LED string 3 dimmer
-            led_pwm_3.ChangeDutyCycle(pwm_value)
+        
+        for pwm_value in range(50,30,-1):               # LED string 1 dimmer
+            led_pwm_1.ChangeDutyCycle(pwm_value)
             check_thread_type_and_sleep(0.0003)
         for pwm_value in range(31,101,1):               # LED string 3 brighter
             led_pwm_3.ChangeDutyCycle(pwm_value)
@@ -292,6 +297,7 @@ def start_thread_sparkle():
             led_pwm_3.ChangeDutyCycle(pwm_value)
             check_thread_type_and_sleep(0.0033)
         check_thread_type_and_sleep(sparkle_speed / 6)  # Wait
+
     led_pwm_1.stop()
     led_pwm_2.stop()
     led_pwm_3.stop()
