@@ -14,8 +14,8 @@ LedPin_2 = 19       # pin35 --- led fairy lights 2
 LedPin_3 = 20       # pin38 --- led fairy lights 1
 BtnPin_cycle = 23   # pin16 --- button
 
-led_thread_type = "none"    # Type of lighting thread to run. [none, all, rotate, twinkle fast, twinkle medium, twinkle slow] This is to controll stopping thread
-led_cycle_type = 0          # Index of the LED patten to be showing. 0=none, 1=all, 2=rotate, 3=twinkle fast, 4=twinkle medium, 5=twinkle fast.    
+led_thread_type = "none"    # Type of lighting thread to run. [none, all, rotate, twinkle fast, twinkle medium, twinkle slow, sparkle fast, sparkle medium, sparkle slow] This is to controll stopping thread
+led_cycle_type = 0          # Index of the LED patten to be showing. 0=none, 1=all, 2=rotate, 3=twinkle fast, 4=twinkle medium, 5=twinkle slow, 6=sparkle fast, 7=sparkle medium, 8=sparkle slow.
 
 logging
 log_path = "/var/log/pi-fairy-light-control/"
@@ -33,7 +33,7 @@ def setup():
 def btn_pressed_cycle(ev=None):
     global led_cycle_type
     global led_thread_type
-    logger.info("Button pressed - cycle")
+    logger.info("Button pressed - cycle pattern")
     if led_cycle_type == 0:
         led_cycle_type = 1
         on_all()
@@ -50,6 +50,15 @@ def btn_pressed_cycle(ev=None):
         led_cycle_type = 5
         on_twinkle(2) # twinkle slow 2 seconds
     elif led_cycle_type == 5:
+        led_cycle_type = 6
+        on_sparkle(1) # sparkle 1 seconds
+    elif led_cycle_type == 6:
+        led_cycle_type = 7
+        on_sparkle(2.5) # sparkle 2.5 seconds
+    elif led_cycle_type == 7:
+        led_cycle_type = 8
+        on_sparkle(4) # sparkle 4 seconds
+    elif led_cycle_type == 8:
         led_cycle_type = 0
         off_all()
     else:
@@ -139,6 +148,25 @@ def on_twinkle(speed):
     else:
         logger.info("Led Thread: Twinkle - alreaday running - Twinkle Speed %s secs", twinkle_speed) # If just updating twinkle_speed then we keep the twinkle thread running
 
+def on_sparkle(speed):
+    global led_thread_type
+    global led_thread
+    global sparkle_speed
+    sparkle_speed = speed # Update global variable to fast (0.5 sec) or slow (1 sec). Could be any number of seconds.
+    if led_thread_type!="sparkle":
+        led_thread_type = "sparkle"
+        try:                        # If led thread is runing and not 'sparkle' then stop it.
+            led_thread.isAlive()
+            time.sleep(0.05)
+            logger.debug("Thread was running.. but should stop???")
+            led_thread.join()
+        except NameError:
+            logger.info("Thread not running")
+        
+        led_thread = threading.Thread(target=start_thread_sparkle) # Start new led thread
+        led_thread.start()
+    else:
+        logger.info("Led Thread: Sparkle - alreaday running - sparkle Speed %s secs", sparkle_speed) # If just updating sparkle_speed then we keep the sparkle thread running
 
 ## Functions for light pattern threads
 def start_thread_rotate():
@@ -149,20 +177,23 @@ def start_thread_rotate():
             # break
     logger.info("Led Thread: Rotate - STARTED")
     while led_thread_type == "rotate":
-        GPIO.output(LedPin_1,GPIO.HIGH) # Set LedPin_1 high(+3.3V) to off led
-        GPIO.output(LedPin_2,GPIO.HIGH) # Set LedPin_2 high(+3.3V) to off led
+        # Turn on Light strings 1 and 2
+        GPIO.output(LedPin_1,GPIO.HIGH) # Set LedPin_1 high(+3.3V) turn on leds
+        GPIO.output(LedPin_2,GPIO.HIGH) # Set LedPin_2 high(+3.3V) turn on leds
         GPIO.output(LedPin_3,GPIO.LOW)
         check_thread_type_and_sleep(1)
-        GPIO.output(LedPin_3,GPIO.HIGH) # Set LedPin_3 high(+3.3V) to off led
-        GPIO.output(LedPin_1,GPIO.LOW)
-        check_thread_type_and_sleep(1)
-        GPIO.output(LedPin_1,GPIO.HIGH) # Set LedPin_1 high(+3.3V) to off led
-        GPIO.output(LedPin_2,GPIO.LOW)
-        check_thread_type_and_sleep(1)
-        GPIO.output(LedPin_2,GPIO.HIGH) # Set LedPin_2 high(+3.3V) to off led
-        GPIO.output(LedPin_3,GPIO.LOW)
-        check_thread_type_and_sleep(1)
-        GPIO.output(LedPin_3,GPIO.HIGH) # Set LedPin_2 high(+3.3V) to off led
+        # Main rotate loop
+        for n in range(0,5,1): 
+            GPIO.output(LedPin_3,GPIO.HIGH) # Set LedPin_3 high(+3.3V) turn on leds
+            GPIO.output(LedPin_1,GPIO.LOW)
+            check_thread_type_and_sleep(1)
+            GPIO.output(LedPin_1,GPIO.HIGH) # Set LedPin_1 high(+3.3V) turn on leds
+            GPIO.output(LedPin_2,GPIO.LOW)
+            check_thread_type_and_sleep(1)
+            GPIO.output(LedPin_2,GPIO.HIGH) # Set LedPin_2 high(+3.3V) turn on leds
+            check_thread_type_and_sleep(1)
+        # This section turns all light strings on, and then off, then the loop restarts
+        GPIO.output(LedPin_3,GPIO.HIGH) # Set LedPin_2 high(+3.3V) turn on leds
         check_thread_type_and_sleep(1)
         GPIO.output(LedPin_1,GPIO.LOW)
         GPIO.output(LedPin_2,GPIO.LOW)
@@ -213,6 +244,64 @@ def start_thread_twinkle():
     led_pwm_2.stop()
     led_pwm_3.stop()
     logger.info("Led Thread: Twinkle - STOP")
+
+def start_thread_sparkle():
+    def check_thread_type_and_sleep(thread_sleep):
+        if led_thread_type == "sparkle":
+            time.sleep(thread_sleep)
+            logger.debug(led_thread_type)
+            # break
+    # Set up LED pins to be PWM so we can change the brightness
+    led_pwm_1 = GPIO.PWM(LedPin_1,1000)
+    led_pwm_1.start(0)
+    led_pwm_2 = GPIO.PWM(LedPin_2,1000)
+    led_pwm_2.start(0)
+    led_pwm_3 = GPIO.PWM(LedPin_3,1000)
+    led_pwm_3.start(0)
+    logger.info("Led Thread: Sparkle - STARTED - Sparkle Speed %s secs", sparkle_speed)
+    # Set all LED strings to 50% brightness
+    led_pwm_1.ChangeDutyCycle(50)
+    led_pwm_2.ChangeDutyCycle(50)
+    led_pwm_3.ChangeDutyCycle(50)
+    # MAke the LED strings 'sparkle'
+    while led_thread_type == "sparkle":
+        for pwm_value in range(50,30,-1):               # LED string 2 dimmer
+            led_pwm_2.ChangeDutyCycle(pwm_value)
+            check_thread_type_and_sleep(0.0003)
+        for pwm_value in range(31,101,1):               # LED string 1 brighter
+            led_pwm_1.ChangeDutyCycle(pwm_value)
+            check_thread_type_and_sleep(0.0033)
+        for pwm_value in range(100,50,-1):              # LED string 1 dimmer
+            led_pwm_1.ChangeDutyCycle(pwm_value)
+            check_thread_type_and_sleep(0.0033)
+        check_thread_type_and_sleep(sparkle_speed / 6)  # Wait
+        
+        for pwm_value in range(50,30,-1):               # LED string 3 dimmer
+            led_pwm_3.ChangeDutyCycle(pwm_value)
+            check_thread_type_and_sleep(0.0003)
+        for pwm_value in range(31,101,1):               # LED string 2 brighter
+            led_pwm_2.ChangeDutyCycle(pwm_value)
+            check_thread_type_and_sleep(0.0033)
+        for pwm_value in range(100,50,-1):              # LED string 2 dimmer
+            led_pwm_2.ChangeDutyCycle(pwm_value)
+            check_thread_type_and_sleep(0.0033)
+        check_thread_type_and_sleep(sparkle_speed / 6)  # Wait
+        
+        for pwm_value in range(50,30,-1):               # LED string 1 dimmer
+            led_pwm_1.ChangeDutyCycle(pwm_value)
+            check_thread_type_and_sleep(0.0003)
+        for pwm_value in range(31,101,1):               # LED string 3 brighter
+            led_pwm_3.ChangeDutyCycle(pwm_value)
+            check_thread_type_and_sleep(0.0033)
+        for pwm_value in range(100,50,-1):              # LED string 3 dimmer
+            led_pwm_3.ChangeDutyCycle(pwm_value)
+            check_thread_type_and_sleep(0.0033)
+        check_thread_type_and_sleep(sparkle_speed / 6)  # Wait
+
+    led_pwm_1.stop()
+    led_pwm_2.stop()
+    led_pwm_3.stop()
+    logger.info("Led Thread: Sparkle - STOP")
 
 def start_thread_all():
     def check_thread_type_and_sleep(thread_sleep):
