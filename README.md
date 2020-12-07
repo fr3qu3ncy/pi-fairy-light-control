@@ -1,19 +1,22 @@
 # pi-fairy-light-control
-Control low power 3v fairy lights / Christmas tree lights from a Raspberry Pi
+Control low power 3v LED fairy lights / Christmas tree lights from a Raspberry Pi
 
 ## About
-This is still a work in proress, and in an Alpha state. the features listed as working below do work.
+This code requires 3 low power LED fairly light strings/strips that run at around 3v. Or to simply test or develop with this code 3 LEDs would work.
+
+The [hardware list and circuit diagrams](https://github.com/fr3qu3ncy/pi-fairy-light-control#hardware) are both below
+
 ### Version
-v0.3.1
+v0.4.0
 ### Features working:
 * Control multiple light strings of fairy light connected to the GPIO pins.
 * Threading of LED control.
-* Patterns/effect - All on, Rotate, Twinkle slow, Twinkle medium, Twinkle fast, All off.
+* Patterns/effect - All on, Rotate, Twinkle (slow/medium/fast), Sparkle (slow/mediuam/fast) All off.
 * Software PWM to allow fading in and out of light.
 * Hardware button for on off / cycle through patterns
 * Logging - rotating log to /var/logs/pi-fairy-light-control/pi-f-l-control.log
 ### Features in progress
-* none
+* Sparkle pattern
 ### Features in to-do
 * More differnt patterns and effects
 * Smart Home Integration
@@ -28,9 +31,9 @@ v0.3.1
 ## Install Instructions
 ### Download and unzip latest release code
 ```
-wget https://github.com/fr3qu3ncy/pi-fairy-light-control/archive/v0.3.1.tar.gz
-tar -zxvf v0.3.1.tar.gz
-rm v0.3.1.tar.gz
+wget https://github.com/fr3qu3ncy/pi-fairy-light-control/archive/v0.4.0.tar.gz
+tar -zxvf v0.4.0.tar.gz
+rm v0.4.0.tar.gz
 ```
 
 ### Install Prerequisites (for python3)
@@ -41,10 +44,23 @@ sudo apt-get -y install python3-rpi.gpio
 
 ### Run Code
 ```
-cd pi-fairy-light-control-0.3.1/
+cd pi-fairy-light-control-0.4.0/
 python3 pi-f-l-control.py
 ```
 You can run under python2.7 if you wish.
+
+## Instructions
+When you start the code `python3 pi-f-l-control.py` the LED lights will all be off, or lit in their last static state.
+Pressing the button will cycle through the available patterns in the following order:
+1. All On
+1. Rotate
+1. Twinkle Fast
+1. Twinkle Medium
+1. Twinkle Slow
+1. Sparkle Fast
+1. Sparkle Medium
+1. Sparkle Slow
+1. All Off
 
 ## Hardware
 ### Parts List
