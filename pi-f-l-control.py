@@ -183,7 +183,7 @@ def start_thread_rotate():
         GPIO.output(LedPin_3,GPIO.LOW)
         check_thread_type_and_sleep(1)
         # Main rotate loop
-        for n in range(0,5,1): 
+        for n in range(0,13,1): 
             GPIO.output(LedPin_3,GPIO.HIGH) # Set LedPin_3 high(+3.3V) turn on leds
             GPIO.output(LedPin_1,GPIO.LOW)
             check_thread_type_and_sleep(1)
@@ -191,6 +191,7 @@ def start_thread_rotate():
             GPIO.output(LedPin_2,GPIO.LOW)
             check_thread_type_and_sleep(1)
             GPIO.output(LedPin_2,GPIO.HIGH) # Set LedPin_2 high(+3.3V) turn on leds
+            GPIO.output(LedPin_3,GPIO.LOW)
             check_thread_type_and_sleep(1)
         # This section turns all light strings on, and then off, then the loop restarts
         GPIO.output(LedPin_3,GPIO.HIGH) # Set LedPin_2 high(+3.3V) turn on leds
