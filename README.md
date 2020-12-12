@@ -74,5 +74,5 @@ Pressing the button will cycle through the available patterns in the following o
 * Dupoint connection cables (various)
 
 ### Circuit Diagram
-![Pi Fairy Light Control Circuit diagram](https://user-images.githubusercontent.com/33297343/100523077-6cd20480-31a5-11eb-9c0d-f8271f841109.png)
+![Pi Fairy Light Control Circuit diagram](https://user-images.githubusercontent.com/33297343/101999019-91af9700-3cd0-11eb-8125-3e55d02b96bc.png)
 
