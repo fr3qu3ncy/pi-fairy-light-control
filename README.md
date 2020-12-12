@@ -7,7 +7,7 @@ This code requires 3 low power LED fairly light strings/strips that run at aroun
 The [hardware list and circuit diagrams](https://github.com/fr3qu3ncy/pi-fairy-light-control#hardware) are both below
 
 ### Version
-v0.4.1
+v1.0.0
 ### Features working:
 * Control multiple light strings of fairy light connected to the GPIO pins.
 * Threading of LED control.
@@ -31,9 +31,9 @@ v0.4.1
 ## Install Instructions
 ### Download and unzip latest release code
 ```
-wget https://github.com/fr3qu3ncy/pi-fairy-light-control/archive/v0.4.1.tar.gz
-tar -zxvf v0.4.1.tar.gz
-rm v0.4.1.tar.gz
+wget https://github.com/fr3qu3ncy/pi-fairy-light-control/archive/v1.0.0.tar.gz
+tar -zxvf v1.0.0.tar.gz
+rm v1.0.0.tar.gz
 ```
 
 ### Install Prerequisites (for python3)
@@ -44,7 +44,7 @@ sudo apt-get -y install python3-rpi.gpio
 
 ### Run Code
 ```
-cd pi-fairy-light-control-0.4.1/
+cd pi-fairy-light-control-1.0.0/
 python3 pi-f-l-control.py
 ```
 You can run under python2.7 if you wish.
@@ -74,5 +74,5 @@ Pressing the button will cycle through the available patterns in the following o
 * Dupoint connection cables (various)
 
 ### Circuit Diagram
-![Pi Fairy Light Control Circuit diagram](https://user-images.githubusercontent.com/33297343/100523077-6cd20480-31a5-11eb-9c0d-f8271f841109.png)
+![Pi Fairy Light Control Circuit diagram](https://user-images.githubusercontent.com/33297343/101999019-91af9700-3cd0-11eb-8125-3e55d02b96bc.png)
 
