@@ -27,7 +27,7 @@ def setup():
     GPIO.setup(LedPin_1,GPIO.OUT)   # Set LedPin_1's mode is output
     GPIO.setup(LedPin_2,GPIO.OUT)   # Set LedPin_2's mode is output
     GPIO.setup(LedPin_3,GPIO.OUT)   # Set LedPin_3's mode is output
-    GPIO.setup(BtnPin_cycle,GPIO.IN, pull_up_down=GPIO.PUD_UP)    # Set BtnPin_cycle's mode is input, and pull up to high level (3.3v)
+    GPIO.setup(BtnPin_cycle,GPIO.IN)    # Set BtnPin_cycle's mode is input, and pull up to high level (3.3v)
 
 ## Handler for button presssed.
 def btn_pressed_cycle(ev=None):
