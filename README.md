@@ -68,11 +68,13 @@ Pressing the button will cycle through the available patterns in the following o
     * I used these [battery powered lights from Amazon UK](https://www.amazon.co.uk/gp/product/B08FSQDRJX/ref=ppx_yo_dt_b_asin_image_o04_s00?ie=UTF8&psc=1). I cut of the battery pack, and **crimped on Dupoint conenctors**.
 * S - Push button
     * Any push button switch
-* R - 330 Ohms resistors **x3**
+* R 1-3 - 330 Ohms resistors **x3**
+* R 4 - 1K Ohm resister **x1** - _Ptotect GPIO pin incase accidently set to output._
+* R 5 - 10K Ohms resistor **x1** - _Pull up the state of the GPIO pin._
 * Raspberry Pi
 * Breadboard
 * Dupoint connection cables (various)
 
 ### Circuit Diagram
-![Pi Fairy Light Control Circuit diagram](https://user-images.githubusercontent.com/33297343/101999019-91af9700-3cd0-11eb-8125-3e55d02b96bc.png)
+![Pi Fairy Light Control Circuit diagram](https://user-images.githubusercontent.com/33297343/102353459-fb65c480-3fa0-11eb-8dbc-d86cc7b21a5e.png)
 
