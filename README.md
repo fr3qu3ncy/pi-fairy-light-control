@@ -7,7 +7,7 @@ This code requires 3 low power LED fairly light strings/strips that run at aroun
 The [hardware list and circuit diagrams](https://github.com/fr3qu3ncy/pi-fairy-light-control#hardware) are both below
 
 ### Version
-v1.0.0
+v1.0.1
 ### Features working:
 * Control multiple light strings of fairy light connected to the GPIO pins.
 * Threading of LED control.
@@ -31,9 +31,9 @@ v1.0.0
 ## Install Instructions
 ### Download and unzip latest release code
 ```
-wget https://github.com/fr3qu3ncy/pi-fairy-light-control/archive/v1.0.0.tar.gz
-tar -zxvf v1.0.0.tar.gz
-rm v1.0.0.tar.gz
+wget https://github.com/fr3qu3ncy/pi-fairy-light-control/archive/v1.0.1.tar.gz
+tar -zxvf v1.0.1.tar.gz
+rm v1.0.1.tar.gz
 ```
 
 ### Install Prerequisites (for python3)
@@ -44,7 +44,7 @@ sudo apt-get -y install python3-rpi.gpio
 
 ### Run Code
 ```
-cd pi-fairy-light-control-1.0.0/
+cd pi-fairy-light-control-1.0.1/
 python3 pi-f-l-control.py
 ```
 You can run under python2.7 if you wish.
@@ -68,11 +68,13 @@ Pressing the button will cycle through the available patterns in the following o
     * I used these [battery powered lights from Amazon UK](https://www.amazon.co.uk/gp/product/B08FSQDRJX/ref=ppx_yo_dt_b_asin_image_o04_s00?ie=UTF8&psc=1). I cut of the battery pack, and **crimped on Dupoint conenctors**.
 * S - Push button
     * Any push button switch
-* R - 330 Ohms resistors **x3**
+* R 1-3 - 330 Ohms resistors **x3**
+* R 4 - 1K Ohm resister **x1** - _Ptotect GPIO pin incase accidently set to output._
+* R 5 - 10K Ohms resistor **x1** - _Pull up the state of the GPIO pin._
 * Raspberry Pi
 * Breadboard
 * Dupoint connection cables (various)
 
 ### Circuit Diagram
-![Pi Fairy Light Control Circuit diagram](https://user-images.githubusercontent.com/33297343/101999019-91af9700-3cd0-11eb-8125-3e55d02b96bc.png)
+![Pi Fairy Light Control Circuit diagram](https://user-images.githubusercontent.com/33297343/102353459-fb65c480-3fa0-11eb-8dbc-d86cc7b21a5e.png)
 
