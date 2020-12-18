@@ -12,7 +12,7 @@ version = "v1.0.1"
 LedPin_1 = 18       # pin12 --- led fairy lights 1
 LedPin_2 = 19       # pin35 --- led fairy lights 2
 LedPin_3 = 20       # pin38 --- led fairy lights 1
-BtnPin_cycle = 23   # pin16 --- button
+BtnPin_cycle = 17   # pin11 --- button
 
 led_thread_type = "none"    # Type of lighting thread to run. [none, all, rotate, twinkle fast, twinkle medium, twinkle slow, sparkle fast, sparkle medium, sparkle slow] This is to controll stopping thread
 led_cycle_type = 0          # Index of the LED patten to be showing. 0=none, 1=all, 2=rotate, 3=twinkle fast, 4=twinkle medium, 5=twinkle slow, 6=sparkle fast, 7=sparkle medium, 8=sparkle slow.
