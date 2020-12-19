@@ -8,7 +8,7 @@ from flask import Flask, render_template, request
 import os
 import errno
 
-version = "v1.1.0"
+version = "v2.0.0"
 
 LedPin_1 = 18       # pin12 --- led fairy lights 1
 LedPin_2 = 19       # pin35 --- led fairy lights 2
