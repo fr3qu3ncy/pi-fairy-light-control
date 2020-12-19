@@ -1,0 +1,45 @@
+{
+    "short_name": "pi-f-l-c",
+    "name": "pi-fairy-light-control",
+    "description": "Control Pi fairy lights",
+    "icons": [
+      {
+        "src": "/static/favicons/favicon-apple-192.png",
+        "type": "image/png",
+        "sizes": "192x192"
+      },
+      {
+        "src": "/static/favicons/favicon-apple-228.png",
+        "type": "image/png",
+        "sizes": "228x228"
+      }
+    ],
+    "start_url": "/",
+    "background_color": "#FFFFFF",
+    "display": "standalone",
+    "scope": "/",
+    "theme_color": "#f26522",
+    "shortcuts": [
+      {
+        "name": "Pi Fairy Light Off",
+        "short_name": "Off",
+        "description": "Turn off lights",
+        "url": "/action/off",
+        "icons": [{ "src": "/static/favicons/favicon-apple-192.png", "sizes": "192x192" }]
+      },
+      {
+        "name": "Pi Fairy Light All On",
+        "short_name": "All On",
+        "description": "Turn on all lights",
+        "url": "/action/all",
+        "icons": [{ "src": "/static/favicons/favicon-apple-192.png", "sizes": "192x192" }]
+      },
+      {
+        "name": "Pi Fairy Light Twinkle Fast",
+        "short_name": "Twinkle",
+        "description": "Twinkly lights",
+        "url": "/action/twinkle-fast",
+        "icons": [{ "src": "/static/favicons/favicon-apple-192.png", "sizes": "192x192" }]
+      }
+    ]
+  }
