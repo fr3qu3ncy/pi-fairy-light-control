@@ -7,7 +7,7 @@ This code requires 3 low power LED fairly light strings/strips that run at aroun
 The [hardware list and circuit diagrams](https://github.com/fr3qu3ncy/pi-fairy-light-control#hardware) are both below
 
 ### Version
-v2.0.0
+v2.0.1
 ### Features working:
 * Control multiple light strings of fairy light connected to the GPIO pins.
 * Threading of LED control.
@@ -15,8 +15,9 @@ v2.0.0
 * Software PWM to allow fading in and out of light.
 * Hardware button for on off / cycle through patterns
 * Logging - rotating log to /var/logs/pi-fairy-light-control/pi-f-l-control.log
+* Web interface to control light patterns (http://*hostname*:5000/)
 ### Features in progress
-* Web interface to control light patterns
+* none
 ### Features in to-do
 * More differnt patterns and effects
 * Smart Home Integration
@@ -31,9 +32,9 @@ v2.0.0
 ## Install Instructions
 ### Download and unzip latest release code
 ```
-wget https://github.com/fr3qu3ncy/pi-fairy-light-control/archive/v2.0.0.tar.gz
-tar -zxvf v2.0.0.tar.gz
-rm v2.0.0.tar.gz
+wget https://github.com/fr3qu3ncy/pi-fairy-light-control/archive/v2.0.1.tar.gz
+tar -zxvf v2.0.1.tar.gz
+rm v2.0.1.tar.gz
 ```
 
 ### Install Prerequisites (for python3)
@@ -41,18 +42,20 @@ rm v2.0.0.tar.gz
 sudo apt-get update
 sudo apt-get -y install python3-rpi.gpio
 sudo apt-get -y install python-pip
+python3 -m pip install --upgrade pip
 sudo pip3 install flask
 ```
 
 ### Run Code
 ```
-cd pi-fairy-light-control-2.0.0/
+cd pi-fairy-light-control-2.0.1/
 python3 pi-f-l-control.py
 ```
 You can run under python2.7 if you wish.
 
 ## Instructions
 When you start the code `python3 pi-f-l-control.py` the LED lights will all be off, or lit in their last static state.
+
 Pressing the button will cycle through the available patterns in the following order:
 1. All On
 1. Rotate
@@ -65,15 +68,16 @@ Pressing the button will cycle through the available patterns in the following o
 1. All Off
 
 ### Web Interfaace
-New in **v2.0.0** there is a web interface to control the pattern running, and display the curently running pattern.
+New in **v2.0.0** and above there is a web interface to control the pattern running, and display the curently running pattern.
+
 In a web browser, go to `http://hostname:5000/` replacing **hostname** with the hostname of your Raspberry Pi
 
-<img alt="Pi Fairy Light Control Web Interface" src="https://user-images.githubusercontent.com/33297343/102696422-0c733780-4226-11eb-88a4-9ad3f81dfe27.png" width="40%">
+<img alt="Pi Fairy Light Control Web Interface" src="https://user-images.githubusercontent.com/33297343/102696422-0c733780-4226-11eb-88a4-9ad3f81dfe27.png" width="50%">
 
 
 To add the web interface as a web app to an iPhone or other iOS device, click the share button at the bottom, and select **Add to Home Screen**
 
-<img alt="Pi Fairy Light Control Web Interface" src="https://user-images.githubusercontent.com/33297343/102696405-ea79b500-4225-11eb-80b1-6536186df2a4.png" width="40%">
+<img alt="Pi Fairy Light Control Web Interface" src="https://user-images.githubusercontent.com/33297343/102696405-ea79b500-4225-11eb-80b1-6536186df2a4.png" width="50%">
 
 
 ## Hardware
