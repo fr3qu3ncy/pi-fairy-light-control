@@ -23,6 +23,7 @@ led_cycle_type = 0          # Index of the LED patten to be showing. 0=none, 1=a
 logging
 log_path = "/var/log/pi-fairy-light-control/"
 log_file = "pi-f-l-control.log"
+log_web_access = "web-access.log"
 
 ## Set up the GPIO Pins
 def setup():
@@ -349,6 +350,14 @@ def mkdir_p(path):
 ##
 def start_thread_web_server():
     app = Flask(__name__)
+
+    # Create web log - (to make sure file path is already there, but have called log_create() already)
+    appHandler = TimedRotatingFileHandler(log_path + log_web_access, when="midnight", interval=1, backupCount=30)
+    appHandler.setLevel(logging.INFO)
+    app.logger.addHandler(appHandler)
+    appLog = logging.getLogger('werkzeug')
+    appLog.setLevel(logging.INFO)
+    appLog.addHandler(appHandler)
 
     @app.route("/")
     def main():
