@@ -6,9 +6,11 @@ import logging
 from logging.handlers import TimedRotatingFileHandler
 from flask import Flask, render_template, request
 import os
+import socket
 import errno
 
-version = "v2.0.0"
+version = "v2.0.1"
+piHostname = socket.gethostname()
 
 LedPin_1 = 18       # pin12 --- led fairy lights 1
 LedPin_2 = 19       # pin35 --- led fairy lights 2
@@ -356,9 +358,9 @@ def start_thread_web_server():
         templateData = {
             'action' : '',
             'ledThredType' : led_thread_type,
-            'ledCycleType' : led_cycle_type
-            ,
-            'version' : version
+            'ledCycleType' : led_cycle_type,
+            'version' : version,
+            'hostname' : piHostname
         }
         return render_template('index.html', **templateData)
     
@@ -396,7 +398,8 @@ def start_thread_web_server():
             'action' : action,
             'ledThredType' : led_thread_type,
             'ledCycleType' : led_cycle_type,
-            'version' : version
+            'version' : version,
+            'hostname' : piHostname
         }
 
         return render_template('index.html', **templateData)
