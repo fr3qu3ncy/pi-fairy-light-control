@@ -29,7 +29,16 @@ def setup():
     GPIO.setup(LedPin_3,GPIO.OUT)   # Set LedPin_3's mode is output
     GPIO.setup(BtnPin_cycle,GPIO.IN)    # Set BtnPin_cycle's mode is input.
 
-## Handler for button presssed.
+## Thread for button event handler.
+def start_thread_btn_event_handler():
+    while True:
+        channel = GPIO.wait_for_edge(BtnPin_cycle, GPIO.FALLING, bouncetime=200)
+        if channel is None:
+            logger.error("Error on button detect.")
+        else:
+            btn_pressed_cycle()
+
+## Button presssed, change lighting patten.
 def btn_pressed_cycle(ev=None):
     global led_cycle_type
     global led_thread_type
@@ -68,7 +77,6 @@ def btn_pressed_cycle(ev=None):
 
 ## Main loop, adds event handler for button press.
 def loop():
-    GPIO.add_event_detect(BtnPin_cycle, GPIO.FALLING, callback=btn_pressed_cycle, bouncetime=200) # wait for falling and set bouncetime to prevent the callback function from being called multiple times when the button is pressed
     while True:
         time.sleep(1) # Don't do anything
 
@@ -77,7 +85,7 @@ def destroy(): # Not woking!
     GPIO.output(LedPin_1, GPIO.LOW)     # led_1 off
     GPIO.output(LedPin_2, GPIO.LOW)     # led_2 off
     GPIO.output(LedPin_3, GPIO.LOW)     # led_3 off
-    GPIO.cleanup()                     # Release resource
+    GPIO.cleanup()                      # Release resource
 
 ##
 ## Functions to handle diffferent lighting effects
@@ -207,7 +215,6 @@ def start_thread_twinkle():
         if led_thread_type == "twinkle":
             time.sleep(thread_sleep)
             logger.debug(led_thread_type)
-            # break
     # Set up LED pins to be PWM so we can change the brightness
     led_pwm_1 = GPIO.PWM(LedPin_1,1000)
     led_pwm_1.start(0)
@@ -251,7 +258,6 @@ def start_thread_sparkle():
         if led_thread_type == "sparkle":
             time.sleep(thread_sleep)
             logger.debug(led_thread_type)
-            # break
     # Set up LED pins to be PWM so we can change the brightness
     led_pwm_1 = GPIO.PWM(LedPin_1,1000)
     led_pwm_1.start(0)
@@ -309,7 +315,6 @@ def start_thread_all():
         if led_thread_type == "all":
             time.sleep(thread_sleep)
             logger.debug(led_thread_type)
-            # break
     logger.info("Led Thread: All - STARTED")
     while led_thread_type == "all":
         GPIO.output(LedPin_1,GPIO.HIGH)
@@ -326,11 +331,9 @@ def log_create():
     mkdir_p(log_path)
     format = "%(asctime)s.%(msecs)03d %(levelname)s %(process)d (%(name)s-%(threadName)s) %(message)s (linuxThread-%(thread)d)"
     logger = logging.getLogger("Rotating Log")
-    #logger.setLevel(logging.INFO)
     logger.setLevel(logging.INFO)
     log_handler = TimedRotatingFileHandler(log_path + log_file, when="midnight", interval=1, backupCount=30)
     log_handler.setFormatter(logging.Formatter(format))
-    #logger.setFormatter(format)
     logger.addHandler(log_handler)
     logging.basicConfig(format=format, level=logging.INFO, datefmt="%m/%d/%Y %H:%M:%S")
 
@@ -350,12 +353,13 @@ def mkdir_p(path):
             else: raise
 
 if __name__ == '__main__':     # Program start from here
-    log_create()
-    #log_create_stdout()
-    logger.info("Starting up...")
-    logger.info("pi-fairy-lights : version %s : STARTED", version)
-    setup()
     try:
+        log_create()
+        logger.info("Starting up...")
+        logger.info("pi-fairy-lights : version %s : STARTED", version)
+        setup()
+        btn_thread = threading.Thread(target=start_thread_btn_event_handler)
+        btn_thread.start()
         #testCode()
         loop()
     except KeyboardInterrupt:
