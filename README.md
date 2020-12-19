@@ -16,7 +16,7 @@ v1.1.0
 * Hardware button for on off / cycle through patterns
 * Logging - rotating log to /var/logs/pi-fairy-light-control/pi-f-l-control.log
 ### Features in progress
-* none
+* Web interface to control light patterns
 ### Features in to-do
 * More differnt patterns and effects
 * Smart Home Integration
@@ -40,6 +40,8 @@ rm v1.1.0.tar.gz
 ```
 sudo apt-get update
 sudo apt-get -y install python3-rpi.gpio
+sudo apt-get -y install python-pip
+sudo pip3 install flask
 ```
 
 ### Run Code
