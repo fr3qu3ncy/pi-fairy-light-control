@@ -7,7 +7,7 @@ This code requires 3 low power LED fairly light strings/strips that run at aroun
 The [hardware list and circuit diagrams](https://github.com/fr3qu3ncy/pi-fairy-light-control#hardware) are both below
 
 ### Version
-v1.1.0
+v2.0.0
 ### Features working:
 * Control multiple light strings of fairy light connected to the GPIO pins.
 * Threading of LED control.
@@ -16,7 +16,7 @@ v1.1.0
 * Hardware button for on off / cycle through patterns
 * Logging - rotating log to /var/logs/pi-fairy-light-control/pi-f-l-control.log
 ### Features in progress
-* none
+* Web interface to control light patterns
 ### Features in to-do
 * More differnt patterns and effects
 * Smart Home Integration
@@ -31,20 +31,22 @@ v1.1.0
 ## Install Instructions
 ### Download and unzip latest release code
 ```
-wget https://github.com/fr3qu3ncy/pi-fairy-light-control/archive/v1.1.0.tar.gz
-tar -zxvf v1.1.0.tar.gz
-rm v1.1.0.tar.gz
+wget https://github.com/fr3qu3ncy/pi-fairy-light-control/archive/v2.0.0.tar.gz
+tar -zxvf v2.0.0.tar.gz
+rm v2.0.0.tar.gz
 ```
 
 ### Install Prerequisites (for python3)
 ```
 sudo apt-get update
 sudo apt-get -y install python3-rpi.gpio
+sudo apt-get -y install python-pip
+sudo pip3 install flask
 ```
 
 ### Run Code
 ```
-cd pi-fairy-light-control-1.1.0/
+cd pi-fairy-light-control-2.0.0/
 python3 pi-f-l-control.py
 ```
 You can run under python2.7 if you wish.
@@ -61,6 +63,18 @@ Pressing the button will cycle through the available patterns in the following o
 1. Sparkle Medium
 1. Sparkle Slow
 1. All Off
+
+### Web Interfaace
+New in **v2.0.0** there is a web interface to control the pattern running, and display the curently running pattern.
+In a web browser, go to `http://hostname:5000/` replacing **hostname** with the hostname of your Raspberry Pi
+
+<img alt="Pi Fairy Light Control Web Interface" src="https://user-images.githubusercontent.com/33297343/102696422-0c733780-4226-11eb-88a4-9ad3f81dfe27.png" width="40%">
+
+
+To add the web interface as a web app to an iPhone or other iOS device, click the share button at the bottom, and select **Add to Home Screen**
+
+<img alt="Pi Fairy Light Control Web Interface" src="https://user-images.githubusercontent.com/33297343/102696405-ea79b500-4225-11eb-80b1-6536186df2a4.png" width="40%">
+
 
 ## Hardware
 ### Parts List

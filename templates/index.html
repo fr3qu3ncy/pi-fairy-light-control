@@ -1,0 +1,87 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="/static/style.css">
+        <link rel="manifest" href="/static/manifest.webmanifest">
+        <meta name="viewport" content="width=device-width" />
+        <title>pi-fairy-light-control</title>
+
+        <!-- generics -->
+        <link rel="icon" href="/static/favicons/favicon-32.png" sizes="32x32">
+        <link rel="icon" href="/static/favicons/favicon-57.png" sizes="57x57">
+        <link rel="icon" href="/static/favicons/favicon-76.png" sizes="76x76">
+        <link rel="icon" href="/static/favicons/favicon-96.png" sizes="96x96">
+        <link rel="icon" href="/static/favicons/favicon-128.png" sizes="128x128">
+        <link rel="icon" href="/static/favicons/favicon-192.png" sizes="192x192">
+        <link rel="icon" href="/static/favicons/favicon-228.png" sizes="228x228">
+
+        <!-- Android -->
+        <link rel="shortcut icon" sizes="196x196" href=“/static/favicons/favicon-196.png">
+
+        <!-- iOS -->
+        <link rel="apple-touch-icon" href="/static/favicons/favicon-apple-120.png" sizes="120x120">
+        <link rel="apple-touch-icon" href="/static/favicons/favicon-apple-152.png" sizes="152x152">
+        <link rel="apple-touch-icon" href="/static/favicons/favicon-apple-180.png" sizes="180x180">
+
+        <!-- Windows 8 IE 10-->
+        <meta name="msapplication-TileColor" content="#FFFFFF">
+        <meta name="msapplication-TileImage" content="/static/favicons/favicon-144.png">
+
+        <!-- Windows 8.1 + IE11 and above -->
+        <meta name="msapplication-config" content="/static/favicons/browserconfig.xml" />
+
+    </head>
+    <body>
+        <a href="/"><img src="/static/pi-fairy-light-control-logo-hrz-thin-1.0.png" width="90%" alt="pi-fairy-light-control" style="display:block; margin-left:auto; margin-right:auto; max-width: 450px; max-height: 250px; "></a>
+        <div id=status class="statusBox">none</div>
+        <script>
+            var lightPattern
+            switch ({{ledCycleType}}) {
+                case 0:
+                    lightPattern = "Off";
+                    break;
+                case 1:
+                    lightPattern = "All";
+                    break;
+                case 2:
+                    lightPattern = "Rotate";
+                    break;
+                case 3:
+                    lightPattern = "Twinkle Fast";
+                    break;
+                case 4:
+                    lightPattern = "Twinkle Medium";
+                    break;
+                case 5:
+                    lightPattern = "Twinkle Slow";
+                    break;
+                case 6:
+                    lightPattern = "Sparkle Fast";
+                    break;
+                case 7:
+                    lightPattern = "Sparkle Medium";
+                    break;
+                case 8:
+                    lightPattern = "Sparkle Slow";
+                    break;
+            }
+            document.getElementById("status").innerHTML = "Pattern running<br><b> |  " + lightPattern + "  | </b>";
+        </script>
+    <p>
+        <div class="btn-group">
+            <a href="/action/off" class="button" role="button">Off</a>
+            <a href="/action/all" class="button" role="button">All On</a>
+            <a href="/action/rotate" class="button" role="button">Rotate</a>
+            <a href="/action/twinkle-fast" class="button" role="button">Twinkle Fast</a>
+            <a href="/action/twinkle-medium" class="button" role="button">Twinkle Medium</a>
+            <a href="/action/twinkle-slow" class="button" role="button">Twinkle Slow</a>
+            <a href="/action/sparkle-fast" class="button" role="button">Sparkle Fast</a>
+            <a href="/action/sparkle-medium" class="button" role="button">Sparkle Medium</a>
+            <a href="/action/sparkle-slow" class="button" role="button">Sparkle Slow</a>
+        </div>
+    </p>
+    <div class=versionText>
+        pi-fairy-light-control {{version}}
+    </div>
+    <br>
+    </body>
+</html>

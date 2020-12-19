@@ -4,10 +4,11 @@ import time
 import threading
 import logging
 from logging.handlers import TimedRotatingFileHandler
+from flask import Flask, render_template, request
 import os
 import errno
 
-version = "v1.1.0"
+version = "v2.0.0"
 
 LedPin_1 = 18       # pin12 --- led fairy lights 1
 LedPin_2 = 19       # pin35 --- led fairy lights 2
@@ -60,13 +61,13 @@ def btn_pressed_cycle(ev=None):
         on_twinkle(2) # twinkle slow 2 seconds
     elif led_cycle_type == 5:
         led_cycle_type = 6
-        on_sparkle(1) # sparkle 1 seconds
+        on_sparkle(1) # sparkle fast 1 seconds
     elif led_cycle_type == 6:
         led_cycle_type = 7
-        on_sparkle(2.5) # sparkle 2.5 seconds
+        on_sparkle(2.5) # sparkle medium 2.5 seconds
     elif led_cycle_type == 7:
         led_cycle_type = 8
-        on_sparkle(4) # sparkle 4 seconds
+        on_sparkle(4) # sparkle slow 4 seconds
     elif led_cycle_type == 8:
         led_cycle_type = 0
         off_all()
@@ -75,17 +76,6 @@ def btn_pressed_cycle(ev=None):
         pass
     # to-do add led_cycle_type = 3,4,5,6,etc... as new patterns are added
 
-## Main loop, adds event handler for button press.
-def loop():
-    while True:
-        time.sleep(1) # Don't do anything
-
-## clean up GPIO pins
-def destroy(): # Not woking! 
-    GPIO.output(LedPin_1, GPIO.LOW)     # led_1 off
-    GPIO.output(LedPin_2, GPIO.LOW)     # led_2 off
-    GPIO.output(LedPin_3, GPIO.LOW)     # led_3 off
-    GPIO.cleanup()                      # Release resource
 
 ##
 ## Functions to handle diffferent lighting effects
@@ -270,7 +260,7 @@ def start_thread_sparkle():
     led_pwm_1.ChangeDutyCycle(50)
     led_pwm_2.ChangeDutyCycle(50)
     led_pwm_3.ChangeDutyCycle(50)
-    # MAke the LED strings 'sparkle'
+    # Make the LED strings 'sparkle'
     while led_thread_type == "sparkle":
         for pwm_value in range(50,30,-1):               # LED string 2 dimmer
             led_pwm_2.ChangeDutyCycle(pwm_value)
@@ -352,14 +342,98 @@ def mkdir_p(path):
                 pass
             else: raise
 
+##
+## Flask Web Server functions
+##
+def start_thread_web_server():
+    app = Flask(__name__)
+
+    @app.route("/")
+    def main():
+        global led_cycle_type
+        global led_thread_type
+        # Create dictonary of data to display on page
+        templateData = {
+            'action' : '',
+            'ledThredType' : led_thread_type,
+            'ledCycleType' : led_cycle_type
+            ,
+            'version' : version
+        }
+        return render_template('index.html', **templateData)
+    
+    @app.route("/action/<action>")
+    def action(action):
+        # Set the led_cycle_type to the prociding patten number, and then call the button pressed 
+        # function to move patten on to the next patten (the one requested).
+        # This means when the button is pressed it will move to the corect next patten.
+        global led_cycle_type
+        global led_thread_type
+        if action == "off":
+            led_cycle_type = 8
+        elif action == "all":
+            led_cycle_type = 0
+        elif action == "rotate":
+            led_cycle_type = 1
+        elif action == "twinkle-fast":
+            led_cycle_type = 2
+        elif action == "twinkle-medium":
+            led_cycle_type = 3
+        elif action == "twinkle-slow":
+            led_cycle_type = 4
+        elif action == "sparkle-fast":
+            led_cycle_type = 5
+        elif action == "sparkle-medium":
+            led_cycle_type = 6
+        elif action == "sparkle-slow":
+            led_cycle_type = 7
+
+        # Call the button cycle function, to start the corect patten
+        btn_pressed_cycle()
+
+        # Create dictonary of data to display on page
+        templateData = {
+            'action' : action,
+            'ledThredType' : led_thread_type,
+            'ledCycleType' : led_cycle_type,
+            'version' : version
+        }
+
+        return render_template('index.html', **templateData)
+        #return("<html><body><h1>pi-fairy-light-control</h1>" + str(led_cycle_type) + " " + led_thread_type + "</body></html>")
+
+
+    # Run flask web server
+    app.run(host='0.0.0.0', port=5000, debug=True, use_reloader=False)
+
+##
+## Main Code for App
+##
+
+## Main loop, adds event handler for button press.
+def loop():
+    while True:
+        time.sleep(1) # Don't do anything
+
+## clean up GPIO pins
+def destroy(): # Not woking! 
+    GPIO.output(LedPin_1, GPIO.LOW)     # led_1 off
+    GPIO.output(LedPin_2, GPIO.LOW)     # led_2 off
+    GPIO.output(LedPin_3, GPIO.LOW)     # led_3 off
+    GPIO.cleanup()                      # Release resource
+
 if __name__ == '__main__':     # Program start from here
     try:
         log_create()
         logger.info("Starting up...")
         logger.info("pi-fairy-lights : version %s : STARTED", version)
         setup()
+        # Start button event handler thread
         btn_thread = threading.Thread(target=start_thread_btn_event_handler)
         btn_thread.start()
+        # Start Flask web server thread
+        web_thred = threading.Thread(target=start_thread_web_server)
+        web_thred.start()
         #testCode()
         loop()
     except KeyboardInterrupt:
