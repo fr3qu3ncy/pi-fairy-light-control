@@ -357,6 +357,8 @@ def start_thread_web_server():
             'action' : '',
             'ledThredType' : led_thread_type,
             'ledCycleType' : led_cycle_type
+            ,
+            'version' : version
         }
         return render_template('index.html', **templateData)
     
@@ -393,7 +395,8 @@ def start_thread_web_server():
         templateData = {
             'action' : action,
             'ledThredType' : led_thread_type,
-            'ledCycleType' : led_cycle_type
+            'ledCycleType' : led_cycle_type,
+            'version' : version
         }
 
         return render_template('index.html', **templateData)

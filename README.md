@@ -64,6 +64,18 @@ Pressing the button will cycle through the available patterns in the following o
 1. Sparkle Slow
 1. All Off
 
+### Web Interfaace
+New in **v2.0.0** there is a web interface to control the pattern running, and display the curently running pattern.
+In a web browser, go to `http://hostname:5000/` replacing **hostname** with the hostname of your Raspberry Pi
+
+<img alt="Pi Fairy Light Control Web Interface" src="https://user-images.githubusercontent.com/33297343/102696422-0c733780-4226-11eb-88a4-9ad3f81dfe27.png" width="40%">
+
+
+To add the web interface as a web app to an iPhone or other iOS device, click the share button at the bottom, and select **Add to Home Screen**
+
+<img alt="Pi Fairy Light Control Web Interface" src="https://user-images.githubusercontent.com/33297343/102696405-ea79b500-4225-11eb-80b1-6536186df2a4.png" width="40%">
+
+
 ## Hardware
 ### Parts List
 * LED - Fairy Lights **x3** - Low voltage 3.3v fairly lights.
