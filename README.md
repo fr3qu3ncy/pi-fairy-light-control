@@ -19,6 +19,10 @@ v2.0.1
 ### Features in progress
 * none
 ### Features in to-do
+* Web interface enhancements:
+    * Add description field so user can add some text to help identify the fairy lights.
+    * Ability to connect to other pi-fairy-light-controllers on the network. 
+* Use config files for user defined variables.
 * More differnt patterns and effects
 * Smart Home Integration
     * Apple HomeKit intergration (can be controled on local network, **prefered**)
@@ -70,7 +74,7 @@ Pressing the button will cycle through the available patterns in the following o
 ### Web Interfaace
 New in **v2.0.0** and above there is a web interface to control the pattern running, and display the curently running pattern.
 
-In a web browser, go to `http://hostname:5000/` replacing **hostname** with the hostname of your Raspberry Pi
+In a web browser, go to `http://hostname:5000/` replacing **hostname** with the hostname or IP address of your Raspberry Pi
 
 <img alt="Pi Fairy Light Control Web Interface" src="https://user-images.githubusercontent.com/33297343/102696422-0c733780-4226-11eb-88a4-9ad3f81dfe27.png" width="50%">
 
