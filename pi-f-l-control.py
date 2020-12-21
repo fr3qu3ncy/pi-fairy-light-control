@@ -328,11 +328,11 @@ def log_create():
     log_handler = TimedRotatingFileHandler(log_path + log_file, when="midnight", interval=1, backupCount=30)
     log_handler.setFormatter(logging.Formatter(format))
     logger.addHandler(log_handler)
-    logging.basicConfig(format=format, level=logging.INFO, datefmt="%m/%d/%Y %H:%M:%S")
+    logging.basicConfig(format=format, level=logging.INFO, datefmt="%Y/%m/%d %H:%M:%S")
 
 def log_create_stdout():
     format = "%(asctime)s.%(msecs)03d %(levelname)s %(process)d (%(name)s-%(threadName)s) %(message)s (linuxThread-%(thread)d)"
-    logging.basicConfig(format=format, level=logging.INFO, datefmt="%m/%d/%Y %H:%M:%S")
+    logging.basicConfig(format=format, level=logging.INFO, datefmt="%Y/%m/%d %H:%M:%S")
 
 def mkdir_p(path):
     try:
