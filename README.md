@@ -86,17 +86,26 @@ To add the web interface as a web app to an iPhone or other iOS device, click th
 
 ## Hardware
 ### Parts List
+
+> Required hardware 
+
 * LED - Fairy Lights **x3** - Low voltage 3.3v fairly lights.
     * I used these [battery powered lights from Amazon UK](https://www.amazon.co.uk/gp/product/B08FSQDRJX/ref=ppx_yo_dt_b_asin_image_o04_s00?ie=UTF8&psc=1). I cut of the battery pack, and **crimped on Dupoint conenctors**.
+* R 1-3 - 330 Ohms resistors **x3**
+
+> The Push button, and corresponding resistors listed below, are now optional as you can control the fairy lights from the [Web Interface](https://github.com/fr3qu3ncy/pi-fairy-light-control#web-interfaace)
+
 * S - Push button
     * Any push button switch
-* R 1-3 - 330 Ohms resistors **x3**
-* R 4 - 1K Ohm resister **x1** - _Ptotect GPIO pin incase accidently set to output._
-* R 5 - 10K Ohms resistor **x1** - _Pull up the state of the GPIO pin._
+* R 4 - 1K Ohm resistor **x1** - _Ptotect GPIO pin incase accidently set to output._
+* R 5 - 2K Ohms resistor **x1** - _Pull up the state of the GPIO pin._
+
+> Other bits you'll need, or similar.
+
 * Raspberry Pi
 * Breadboard
 * Dupoint connection cables (various)
 
 ### Circuit Diagram
-![Pi Fairy Light Control Circuit diagram](https://user-images.githubusercontent.com/33297343/102684505-19197080-41d1-11eb-9976-910c02450e79.png)
+![Pi Fairy Light Control Circuit diagram](https://user-images.githubusercontent.com/33297343/102909129-66ffd400-4470-11eb-8d89-c5b7a53d7142.png)
 
