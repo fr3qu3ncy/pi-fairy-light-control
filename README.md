@@ -1,5 +1,6 @@
 # pi-fairy-light-control
 Control low power 3v LED fairy lights / Christmas tree lights from a Raspberry Pi
+Allows patten to be changed from a hardware button, and now also a web interface.
 
 ## About
 This code requires 3 low power LED fairly light strings/strips that run at around 3v. Or to simply test or develop with this code 3 LEDs would work.
